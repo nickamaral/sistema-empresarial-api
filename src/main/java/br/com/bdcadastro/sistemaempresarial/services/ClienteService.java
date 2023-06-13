@@ -7,6 +7,7 @@ import br.com.bdcadastro.sistemaempresarial.dtos.ClienteRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,7 +35,9 @@ public class ClienteService {
         return clienteRepository.save(clienteRequestDTO.converterNaEntidade());
     }
 
+    @Transactional // grande mudança no banco de dados
     public void deleteById(Long id) {
+        ClienteEntity cliente = buscaPorIdOuJogaException(id);
         clienteRepository.deleteById(id);
     }
 
@@ -58,7 +61,7 @@ public class ClienteService {
 
     public void alteraStatusDoCliente(Long id, StatusDoClienteRequestDTO statusDTO) {
         ClienteEntity cliente = buscaPorIdOuJogaException(id);
-        logDoClienteService.marcaEntradaDoCliente(cliente);
+        logDoClienteService.marcaLogDoCliente(cliente,statusDTO.getStatus().getStatusDoLog());
         cliente.alteraStatus(statusDTO);
         clienteRepository.save(cliente);
 

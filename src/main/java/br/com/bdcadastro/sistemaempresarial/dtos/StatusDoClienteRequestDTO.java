@@ -14,4 +14,5 @@ import lombok.Setter;
 public class                StatusDoClienteRequestDTO {
     @NotNull(message = "Um status deve ser informado")
     private StatusDoCliente status;
+    private String sala;
 }

@@ -17,8 +17,8 @@ public class LogDoClienteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private ClienteEntity cliente;
+    private String nomeDoCliente;
+    private String cpfDoCliente;
     private LocalDateTime dataHora;
     @Enumerated(EnumType.STRING)
     private StatusDoLog statusDoLog;

@@ -13,17 +13,21 @@ import java.util.List;
 @Service
 public class LogDoClienteService {
     @Autowired private LogDoClienteRepository logDoClienteRepository;
-    public void marcaEntradaDoCliente(ClienteEntity cliente){
-        LogDoClienteEntity logDoCliente = criaLogDoCliente(cliente);
+
+    public void marcaLogDoCliente(ClienteEntity cliente, StatusDoLog statusDoLog){
+        LogDoClienteEntity logDoCliente = criaLogDoCliente(cliente, statusDoLog);
         logDoClienteRepository.save(logDoCliente);
     }
-    private LogDoClienteEntity criaLogDoCliente(ClienteEntity cliente) {
+    private LogDoClienteEntity criaLogDoCliente(ClienteEntity cliente, StatusDoLog statusDoLog) {
         return LogDoClienteEntity.builder()
-                .statusDoLog(StatusDoLog.ENTRADA)
-                .cliente(cliente).dataHora(LocalDateTime.now())
+                .statusDoLog(statusDoLog)
+                .cpfDoCliente(cliente.getCpf())
+                .nomeDoCliente(cliente.getNome())
+                .dataHora(LocalDateTime.now())
                 .sala("10")
                 .build();
     }
 
-    public List<LogDoClienteEntity> findAll() {return logDoClienteRepository.findAll();}
+    public List<LogDoClienteEntity> findAll() {return logDoClienteRepository.findAllByOrderByIdDesc();}
+
 }
