@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.services;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.LogDoClienteInformacesResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
 import br.com.bdcadastro.sistemaempresarial.entities.LogDoClienteEntity;
 import br.com.bdcadastro.sistemaempresarial.entities.StatusDoLog;
@@ -30,4 +31,14 @@ public class LogDoClienteService {
 
     public List<LogDoClienteEntity> findAll() {return logDoClienteRepository.findAllByOrderByIdDesc();}
 
+    public LogDoClienteInformacesResponseDTO pegaUltimoLogDoCliente(ClienteEntity cliente) {
+        List<LogDoClienteEntity> logDoClienteEntities = logDoClienteRepository.findAllByCpfDoClienteOrderByIdDesc(cliente.getCpf());
+        if (logDoClienteEntities.isEmpty()) {
+            return LogDoClienteInformacesResponseDTO.criaDTOVazio();
+        }else {
+            LogDoClienteInformacesResponseDTO dto = logDoClienteEntities.get(0).convertToInfosDTO();
+            return dto;
+        }
+
+    }
 }

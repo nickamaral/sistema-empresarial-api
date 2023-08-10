@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class                StatusDoClienteRequestDTO {
+public class StatusDoClienteRequestDTO {
     @NotNull(message = "Um status deve ser informado")
     private StatusDoCliente status;
     private String sala;

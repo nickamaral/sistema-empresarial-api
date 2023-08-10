@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.controllers;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.ClienteInfosResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.dtos.StatusDoClienteRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
 import br.com.bdcadastro.sistemaempresarial.dtos.ClienteRequestDTO;
@@ -55,6 +56,12 @@ public class ClienteController {
     @PostMapping("/{id}/status")
     public void alteraStatusDoCliente(@PathVariable Long id, @RequestBody @Valid StatusDoClienteRequestDTO statusDTO){
         clienteService.alteraStatusDoCliente(id, statusDTO);
+    }
+
+    @GetMapping("/id/{id}/infos")
+    public ClienteInfosResponseDTO pegaIformacoesCliente(@PathVariable Long id){
+        return clienteService.pegaInformacoesCliente(id);
+
     }
 
 }

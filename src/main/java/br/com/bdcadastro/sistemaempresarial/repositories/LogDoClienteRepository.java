@@ -10,5 +10,5 @@ public interface LogDoClienteRepository extends JpaRepository<LogDoClienteEntity
 
 
     List<LogDoClienteEntity> findAllByOrderByIdDesc();
-
+    List<LogDoClienteEntity> findAllByCpfDoClienteOrderByIdDesc(String cpfDoCliente);
 }

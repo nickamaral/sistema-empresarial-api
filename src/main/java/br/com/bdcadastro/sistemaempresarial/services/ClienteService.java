@@ -1,7 +1,10 @@
 package br.com.bdcadastro.sistemaempresarial.services;
 
 import br.com.bdcadastro.sistemaempresarial.ClienteNaoEncontradoException;
+import br.com.bdcadastro.sistemaempresarial.dtos.ClienteInfosResponseDTO;
+import br.com.bdcadastro.sistemaempresarial.dtos.LogDoClienteInformacesResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.dtos.StatusDoClienteRequestDTO;
+import br.com.bdcadastro.sistemaempresarial.entities.LogDoClienteEntity;
 import br.com.bdcadastro.sistemaempresarial.repositories.ClienteRepository;
 import br.com.bdcadastro.sistemaempresarial.dtos.ClienteRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
@@ -65,5 +68,11 @@ public class ClienteService {
         cliente.alteraStatus(statusDTO);
         clienteRepository.save(cliente);
 
+    }
+
+    public ClienteInfosResponseDTO pegaInformacoesCliente(Long id) {
+        ClienteEntity cliente = buscaPorIdOuJogaException(id);
+        LogDoClienteInformacesResponseDTO logDoClienteDTO = logDoClienteService.pegaUltimoLogDoCliente(cliente);
+        return ClienteInfosResponseDTO.of(cliente, logDoClienteDTO);
     }
 }

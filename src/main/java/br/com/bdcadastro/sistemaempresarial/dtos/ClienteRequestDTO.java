@@ -2,10 +2,7 @@ package br.com.bdcadastro.sistemaempresarial.dtos;
 
 import br.com.bdcadastro.sistemaempresarial.StatusDoCliente;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +29,21 @@ public class ClienteRequestDTO {
     @NotEmpty(message = "O campo telefone não pode estar vazio")
     @Pattern(regexp = "[0-9]+",message = "Somente números")
     private String telefone;
+    @AssertTrue(message = "Deve ser passado um número de telefone celular")
+    public boolean isTelefoneCelular(){
+        int posicaoDo9NoCelular = 2;
+        return telefone.charAt(posicaoDo9NoCelular) == '9';
+    }
+    @AssertTrue(message = "Deve ser passado um número de telefone com 11 números")
+    public boolean hasTamanhoTelefoneCelular(){
+        int tamanhoNumeroCelular = 11;
+        return telefone.length() == tamanhoNumeroCelular;
+    }
+    @AssertFalse(message = "Deve ser passado um número de telefone celular válido")
+    public boolean hasEspacamentoNoTelefoneCelular(){
+    return telefone.contains(" ");
 
+    }
     public ClienteEntity converterNaEntidade() {
         return ClienteEntity.builder()
                 .nome(nome)

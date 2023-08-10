@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.entities;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.LogDoClienteInformacesResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,12 @@ public class LogDoClienteEntity {
     @Enumerated(EnumType.STRING)
     private StatusDoLog statusDoLog;
     private String sala;
+
+    public LogDoClienteInformacesResponseDTO convertToInfosDTO() {
+        return LogDoClienteInformacesResponseDTO.builder()
+                .dataHora(dataHora)
+                .sala(sala)
+                .statusDoLog(statusDoLog)
+                .build();
+    }
 }
