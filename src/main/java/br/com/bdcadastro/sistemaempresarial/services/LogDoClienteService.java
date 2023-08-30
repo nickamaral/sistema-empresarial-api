@@ -1,9 +1,9 @@
 package br.com.bdcadastro.sistemaempresarial.services;
 
 import br.com.bdcadastro.sistemaempresarial.dtos.LogDoClienteInformacesResponseDTO;
+import br.com.bdcadastro.sistemaempresarial.dtos.StatusDoClienteRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
 import br.com.bdcadastro.sistemaempresarial.entities.LogDoClienteEntity;
-import br.com.bdcadastro.sistemaempresarial.entities.StatusDoLog;
 import br.com.bdcadastro.sistemaempresarial.repositories.LogDoClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,17 +15,13 @@ import java.util.List;
 public class LogDoClienteService {
     @Autowired private LogDoClienteRepository logDoClienteRepository;
 
-    public void marcaLogDoCliente(ClienteEntity cliente, StatusDoLog statusDoLog){
-        LogDoClienteEntity logDoCliente = criaLogDoCliente(cliente, statusDoLog);
-        logDoClienteRepository.save(logDoCliente);
-    }
-    private LogDoClienteEntity criaLogDoCliente(ClienteEntity cliente, StatusDoLog statusDoLog) {
+    private LogDoClienteEntity criaLogDoCliente(ClienteEntity cliente, StatusDoClienteRequestDTO statusDoLog) {
         return LogDoClienteEntity.builder()
-                .statusDoLog(statusDoLog)
+                .statusDoLog(statusDoLog.getStatus().getStatusDoLog())
                 .cpfDoCliente(cliente.getCpf())
                 .nomeDoCliente(cliente.getNome())
                 .dataHora(LocalDateTime.now())
-                .sala("10")
+                .sala(statusDoLog.getSala())
                 .build();
     }
 
@@ -40,5 +36,10 @@ public class LogDoClienteService {
             return dto;
         }
 
+    }
+
+    public void marcaLogDoCliente(ClienteEntity cliente, StatusDoClienteRequestDTO statusDTO) {
+        LogDoClienteEntity logDoCliente = criaLogDoCliente(cliente, statusDTO);
+        logDoClienteRepository.save(logDoCliente);
     }
 }

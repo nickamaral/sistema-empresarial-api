@@ -64,7 +64,7 @@ public class ClienteService {
 
     public void alteraStatusDoCliente(Long id, StatusDoClienteRequestDTO statusDTO) {
         ClienteEntity cliente = buscaPorIdOuJogaException(id);
-        logDoClienteService.marcaLogDoCliente(cliente,statusDTO.getStatus().getStatusDoLog());
+        logDoClienteService.marcaLogDoCliente(cliente,statusDTO);
         cliente.alteraStatus(statusDTO);
         clienteRepository.save(cliente);
 
