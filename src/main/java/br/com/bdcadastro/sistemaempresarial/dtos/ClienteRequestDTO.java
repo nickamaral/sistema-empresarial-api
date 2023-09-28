@@ -20,9 +20,13 @@ public class ClienteRequestDTO {
     private String email;
     @NotEmpty(message = "O campo nome não pode estar vazio")
     private String nome;
+    @NotEmpty(message = "O campo url não pode estar vazio")
+    private String urlFoto;
     @NotEmpty(message = "O campo idade não pode estar vazio")
     @Pattern(regexp = "[0-9]+",message = "Somente números")
     private String idade;
+    @NotEmpty(message = "O campo endereço não pode estar vazio")
+    private String endereco;
     @NotEmpty(message = "O campo cpf não pode estar vazio")
     @CPF(message = "Deve ter o formato de um CPF")
     private String cpf;
@@ -39,6 +43,10 @@ public class ClienteRequestDTO {
         int tamanhoNumeroCelular = 11;
         return telefone.length() == tamanhoNumeroCelular;
     }
+    @AssertTrue(message = "A url precisa iniciar com protocolo http ou https")
+    public boolean isUrlFotoCorreto(){
+        return urlFoto.startsWith("http://" ) || urlFoto.startsWith("https://");
+    }
     @AssertFalse(message = "Deve ser passado um número de telefone celular válido")
     public boolean hasEspacamentoNoTelefoneCelular(){
     return telefone.contains(" ");
@@ -49,10 +57,16 @@ public class ClienteRequestDTO {
                 .nome(nome)
                 .idade(idade)
                 .email(email)
-                .cpf(cpf)
+                .urlFoto(urlFoto)
+                .cpf(trataCpf(cpf))
                 .telefone(telefone)
+                .endereco(endereco)
                 .statusDoCliente(StatusDoCliente.PRESENTE)
                 .build();
+    }
+
+    private String trataCpf(String cpf) {
+        return cpf.replaceAll("[^0-9]","");
     }
 
     @AssertTrue // assegura que o metodo vai dar verdadeiro
@@ -66,4 +80,6 @@ public class ClienteRequestDTO {
     public boolean isValidoEmail(){
         return email!=null;
     }
+
+
 }

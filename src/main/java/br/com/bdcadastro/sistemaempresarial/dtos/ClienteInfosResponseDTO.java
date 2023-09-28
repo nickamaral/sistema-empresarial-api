@@ -17,6 +17,8 @@ public class ClienteInfosResponseDTO {
     private String cpf;
     private String telefone;
     private String sala;
+    private String endereco;
+    private String urlFoto;
     private String statusDoCliente;
     private LocalDateTime dataHora;
 
@@ -26,6 +28,8 @@ public class ClienteInfosResponseDTO {
                 .nome(cliente.getNome())
                 .telefone(cliente.getTelefone())
                 .idade(cliente.getIdade())
+                .urlFoto(cliente.getUrlFoto())
+                .endereco(cliente.getEndereco())
                 .dataHora(logDoClienteDTO.getDataHora())
                 .sala(logDoClienteDTO.getSala())
                 .statusDoCliente(pegaStatusDoCliente(logDoClienteDTO))
