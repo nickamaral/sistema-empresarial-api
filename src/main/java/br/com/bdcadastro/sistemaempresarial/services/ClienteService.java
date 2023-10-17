@@ -23,7 +23,7 @@ public class ClienteService {
     public List<ClienteEntity> findAll() {
         return clienteRepository.findAll();
     }
-    private ClienteEntity buscaPorIdOuJogaException(Long id){
+    public ClienteEntity buscaPorIdOuJogaException(Long id){
         return clienteRepository.findById(id).orElseThrow(ClienteNaoEncontradoException::new);
     }
 
