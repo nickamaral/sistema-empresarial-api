@@ -65,6 +65,10 @@ public class ClienteRequestDTO {
                 .build();
     }
 
+    public String getCpf() {
+        return trataCpf(cpf);
+    }
+
     private String trataCpf(String cpf) {
         return cpf.replaceAll("[^0-9]","");
     }
