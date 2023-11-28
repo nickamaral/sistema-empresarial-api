@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.services;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.FotoResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,16 +22,16 @@ public class FotoService{
     private ClienteService clienteService;
     private String destinationDirectory = "C:\\Users\\nicol\\Documents\\projeto-sistema-empresarial-api\\fotos-clientes\\";
 
-    public ResponseEntity<String> armazenaFoto(Long id, MultipartFile file){try{
+    public ResponseEntity<FotoResponseDTO> armazenaFoto(Long id, MultipartFile file){try{
         String nomeCompletoDoArquivo = pegaNomeDoArquivoCompleto(id);
             byte[] bytes = file.getBytes();
             Files.write(Paths.get(nomeCompletoDoArquivo), bytes);
-
-            return ResponseEntity.ok(nomeCompletoDoArquivo.replace(destinationDirectory,"")); //para nao ir novmente ao banco
+            FotoResponseDTO fotoResponseDTO = new FotoResponseDTO(nomeCompletoDoArquivo.replace(destinationDirectory,""));
+            return ResponseEntity.ok(fotoResponseDTO); //para nao ir novmente ao banco
         }
 
         catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar o arquivo.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FotoResponseDTO("erro ao carregar a imagem"));
         }
     }
 

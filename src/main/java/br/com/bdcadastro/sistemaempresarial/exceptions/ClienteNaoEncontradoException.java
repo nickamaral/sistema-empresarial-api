@@ -1,4 +1,4 @@
-package br.com.bdcadastro.sistemaempresarial;
+package br.com.bdcadastro.sistemaempresarial.exceptions;
 
 import lombok.experimental.SuperBuilder;
 

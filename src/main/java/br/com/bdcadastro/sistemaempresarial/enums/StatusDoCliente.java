@@ -1,4 +1,4 @@
-package br.com.bdcadastro.sistemaempresarial;
+package br.com.bdcadastro.sistemaempresarial.enums;
 
 import br.com.bdcadastro.sistemaempresarial.entities.StatusDoLog;
 

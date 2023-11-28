@@ -1,4 +1,5 @@
 package br.com.bdcadastro.sistemaempresarial.controllers;
+import br.com.bdcadastro.sistemaempresarial.dtos.FotoResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.services.FotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class FotoController {
         return fotoService.recebeFoto(id);
     }
     @PostMapping("/clientes/{id}")
-    public ResponseEntity<String> carregaFoto(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file ) throws IOException {
+    public ResponseEntity<FotoResponseDTO> carregaFoto(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file ) throws IOException {
         return fotoService.armazenaFoto(id,file);
     }
 

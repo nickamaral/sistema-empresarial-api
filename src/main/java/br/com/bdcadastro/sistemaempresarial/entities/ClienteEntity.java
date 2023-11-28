@@ -1,7 +1,7 @@
 package br.com.bdcadastro.sistemaempresarial.entities;
 
 import br.com.bdcadastro.sistemaempresarial.dtos.ClienteRequestDTO;
-import br.com.bdcadastro.sistemaempresarial.StatusDoCliente;
+import br.com.bdcadastro.sistemaempresarial.enums.StatusDoCliente;
 import br.com.bdcadastro.sistemaempresarial.dtos.StatusDoClienteRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,7 +33,6 @@ public class ClienteEntity {
     public void atualizaCampos(ClienteRequestDTO clienteRequestDTO) {
         this.email=clienteRequestDTO.getEmail();
         this.nome=clienteRequestDTO.getNome();
-        this.urlFoto=clienteRequestDTO.getUrlFoto();
         this.idade=clienteRequestDTO.getIdade();
         this.cpf=clienteRequestDTO.getCpf();
         this.telefone=clienteRequestDTO.getTelefone();

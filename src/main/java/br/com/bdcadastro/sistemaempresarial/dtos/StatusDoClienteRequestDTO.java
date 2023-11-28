@@ -1,6 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.dtos;
 
-import br.com.bdcadastro.sistemaempresarial.StatusDoCliente;
+import br.com.bdcadastro.sistemaempresarial.enums.StatusDoCliente;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
