@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.entities;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.SalaResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.enums.StatusDoCliente;
 import br.com.bdcadastro.sistemaempresarial.enums.TipoSala;
 import jakarta.persistence.*;
@@ -24,4 +25,7 @@ public class SalaEntity {
     private String cnpj;
     @Enumerated(EnumType.STRING)
     private TipoSala tipoSala;
+    public SalaResponseDTO converteParaDTO(){
+        return SalaResponseDTO.converte(this);
+    }
 }
