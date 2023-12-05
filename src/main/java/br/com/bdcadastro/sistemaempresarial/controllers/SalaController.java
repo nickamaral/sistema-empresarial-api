@@ -36,4 +36,8 @@ public class SalaController {
     public void deletaSala(@PathVariable Long id){
         salaService.deleteById(id);
     }
+    @PutMapping("/{id}")
+    public void alteraPorId(@PathVariable Long id, @RequestBody @Valid SalaRequestDTO salaRequestDTO){
+        salaService.atualiza(id, salaRequestDTO);
+    }
 }

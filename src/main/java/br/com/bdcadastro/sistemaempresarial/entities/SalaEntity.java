@@ -1,5 +1,7 @@
 package br.com.bdcadastro.sistemaempresarial.entities;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.ClienteRequestDTO;
+import br.com.bdcadastro.sistemaempresarial.dtos.SalaRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.dtos.SalaResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.enums.StatusDoCliente;
 import br.com.bdcadastro.sistemaempresarial.enums.TipoSala;
@@ -27,5 +29,14 @@ public class SalaEntity {
     private TipoSala tipoSala;
     public SalaResponseDTO converteParaDTO(){
         return SalaResponseDTO.converte(this);
+    }
+
+    public void atualizaCampos(SalaRequestDTO salaRequestDTO) {
+        this.responsavel= salaRequestDTO.getResponsavel();
+        this.numero= salaRequestDTO.getNumero();
+        this.andar= salaRequestDTO.getAndar();
+        this.empresa= salaRequestDTO.getEmpresa();
+        this.cnpj= salaRequestDTO.getCnpj();
+        this.tipoSala= TipoSala.pegaTipoSala(salaRequestDTO.getTipoSala());
     }
 }

@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.services;
 
+import br.com.bdcadastro.sistemaempresarial.dtos.ClienteRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.dtos.SalaRequestDTO;
 import br.com.bdcadastro.sistemaempresarial.dtos.SalaResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.entities.ClienteEntity;
@@ -40,5 +41,11 @@ public class SalaService {
     public void deleteById(Long id) {
         SalaEntity sala = buscaPorIdOuJogaException(id);
         salaRepository.deleteById(id);
+    }
+
+    public void atualiza(Long id, SalaRequestDTO salaRequestDTO) {
+        SalaEntity salaParaAlterar = buscaPorIdOuJogaException(id);
+        salaParaAlterar.atualizaCampos(salaRequestDTO);
+        salaRepository.save(salaParaAlterar);
     }
 }
