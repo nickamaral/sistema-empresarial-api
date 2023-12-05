@@ -27,6 +27,7 @@ public class SalaResponseDTO {
                 .empresa(salaEntity.getEmpresa())
                 .numero(salaEntity.getNumero())
                 .cnpj(salaEntity.getCnpj())
+                .tipoSala(salaEntity.getTipoSala().getDescricao())
                 .build();
     }
 }
