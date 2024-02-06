@@ -1,5 +1,6 @@
 package br.com.bdcadastro.sistemaempresarial.services;
 
+import br.com.bdcadastro.sistemaempresarial.entities.SalaEntity;
 import br.com.bdcadastro.sistemaempresarial.exceptions.ClienteNaoEncontradoException;
 import br.com.bdcadastro.sistemaempresarial.dtos.ClienteInfosResponseDTO;
 import br.com.bdcadastro.sistemaempresarial.dtos.LogDoClienteInformacesResponseDTO;
@@ -19,6 +20,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired private LogDoClienteService logDoClienteService;
+    @Autowired private SalaService salaService;
     public List<ClienteEntity> findAll() {
         return clienteRepository.findAll();
     }
@@ -62,6 +64,7 @@ public class ClienteService {
     }
 
     public void alteraStatusDoCliente(Long id, StatusDoClienteRequestDTO statusDTO) {
+        SalaEntity salaEntity = salaService.findBySala(statusDTO.getSala());
         ClienteEntity cliente = buscaPorIdOuJogaException(id);
         logDoClienteService.marcaLogDoCliente(cliente,statusDTO);
         cliente.alteraStatus(statusDTO);

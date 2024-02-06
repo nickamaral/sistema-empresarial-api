@@ -34,9 +34,13 @@ public class SalaService {
     }
 
     public SalaResponseDTO criaSala(SalaRequestDTO salaRequestDTO) {
-         salaRepository.save(salaRequestDTO.converterNaEntidade());
-         return null;
+        if(salaRepository.findByNumero(salaRequestDTO.getNumero()).isPresent()){
+            throw new RuntimeException("sala já cadastrada");
+        }
+        salaRepository.save(salaRequestDTO.converterNaEntidade());
+        return null;
     }
+
     @Transactional // grande mudança no banco de dados
     public void deleteById(Long id) {
         SalaEntity sala = buscaPorIdOuJogaException(id);
@@ -48,4 +52,10 @@ public class SalaService {
         salaParaAlterar.atualizaCampos(salaRequestDTO);
         salaRepository.save(salaParaAlterar);
     }
+
+    public SalaEntity findBySala(String sala) {
+        return salaRepository.findByNumero(sala).orElseThrow(SalaNaoEncontradoException::new);
+    }
+
+
 }

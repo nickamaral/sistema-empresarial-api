@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface SalaRepository extends JpaRepository<SalaEntity,Long> {
 
-}
+    Optional<SalaEntity> findByNumero(String numero);
 
+}
